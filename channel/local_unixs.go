@@ -286,6 +286,36 @@ func execScript(ctx context.Context, script, args string) *spec.Response {
 	return spec.ResponseFailWithFlags(spec.OsCmdExecFailed, cmd, outMsg)
 }
 
+func execScriptBySomeOne(ctx context.Context, script, args, user string) *spec.Response {
+	isBladeCommand := isBladeCommand(script)
+	if isBladeCommand && !util.IsExist(script) {
+		// TODO nohup invoking
+		return spec.ResponseFailWithFlags(spec.ChaosbladeFileNotFound, script)
+	}
+	newCtx, cancel := context.WithTimeout(ctx, 60*time.Second)
+	defer cancel()
+	if ctx == context.Background() {
+		ctx = newCtx
+	}
+	log.Debugf(ctx, "Command: %s %s %s", script, args, user)
+	// TODO /bin/sh 的问题
+	cmd := exec.CommandContext(ctx, "su", user, "/bin/sh", "-c", script+" "+args)
+	output, err := cmd.CombinedOutput()
+	outMsg := string(output)
+	log.Debugf(ctx, "Command Result, output: %v, err: %v", outMsg, err)
+	// TODO shell-init错误
+	if strings.TrimSpace(outMsg) != "" && (strings.HasPrefix(strings.TrimSpace(outMsg), "{") || strings.HasPrefix(strings.TrimSpace(outMsg), "[")) {
+		resp := spec.Decode(outMsg, nil)
+		if resp.Code != spec.ResultUnmarshalFailed.Code {
+			return resp
+		}
+	}
+	if err == nil {
+		return spec.ReturnSuccess(outMsg)
+	}
+	outMsg += " " + err.Error()
+	return spec.ResponseFailWithFlags(spec.OsCmdExecFailed, cmd, outMsg)
+}
 func isBladeCommand(script string) bool {
 	return strings.HasSuffix(script, util.GetProgramPath())
 }
