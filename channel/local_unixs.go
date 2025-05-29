@@ -286,7 +286,7 @@ func execScript(ctx context.Context, script, args string) *spec.Response {
 	return spec.ResponseFailWithFlags(spec.OsCmdExecFailed, cmd, outMsg)
 }
 
-func execScriptBySomeOne(ctx context.Context, script, args, user string) *spec.Response {
+func ExecScriptBySomeOne(ctx context.Context, script, args, user string) *spec.Response {
 	isBladeCommand := isBladeCommand(script)
 	if isBladeCommand && !util.IsExist(script) {
 		// TODO nohup invoking
