@@ -22,16 +22,12 @@ package channel
 import (
 	"context"
 	"fmt"
+	"github.com/shirou/gopsutil/process"
 	"os"
 	"os/exec"
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/chaosblade-io/chaosblade-spec-go/log"
-	"github.com/chaosblade-io/chaosblade-spec-go/spec"
-	"github.com/chaosblade-io/chaosblade-spec-go/util"
-	"github.com/shirou/gopsutil/process"
 )
 
 type LocalChannel struct {

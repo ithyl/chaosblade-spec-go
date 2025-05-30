@@ -18,9 +18,8 @@ package channel
 
 import (
 	"context"
-
-	"github.com/chaosblade-io/chaosblade-spec-go/spec"
-	"github.com/chaosblade-io/chaosblade-spec-go/util"
+	"github.com/ithyl/chaosblade-spec-go/spec"
+	"github.com/ithyl/chaosblade-spec-go/util"
 )
 
 // MockLocalChannel for testing
@@ -53,7 +52,7 @@ func NewMockLocalChannel() spec.Channel {
 	}
 }
 
-func (l *MockLocalChannel) Name() string  {
+func (l *MockLocalChannel) Name() string {
 	return "mock"
 }
 

@@ -22,6 +22,9 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/ithyl/chaosblade-spec-go/log"
+	"github.com/ithyl/chaosblade-spec-go/spec"
+	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"math/rand"
 	"net"
@@ -34,10 +37,6 @@ import (
 	"reflect"
 	"runtime"
 	"time"
-
-	"github.com/chaosblade-io/chaosblade-spec-go/log"
-	"github.com/chaosblade-io/chaosblade-spec-go/spec"
-	"github.com/sirupsen/logrus"
 )
 
 var proPath string

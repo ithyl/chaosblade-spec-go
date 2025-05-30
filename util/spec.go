@@ -17,13 +17,12 @@
 package util
 
 import (
+	"github.com/ithyl/chaosblade-spec-go/spec"
 	"io"
 	"io/ioutil"
 	"os"
 
 	"gopkg.in/yaml.v2"
-
-	"github.com/chaosblade-io/chaosblade-spec-go/spec"
 )
 
 // CreateYamlFile converts the spec.Models to spec file
