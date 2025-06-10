@@ -298,7 +298,7 @@ func ExecScriptBySomeOne(ctx context.Context, script, args, user string) *spec.R
 	}
 	log.Debugf(ctx, "Command: %s %s %s", script, args, user)
 	// TODO /bin/sh 的问题
-	cmd := exec.CommandContext(ctx, "su -", user, "/bin/sh", "-c", script+" "+args)
+	cmd := exec.CommandContext(ctx, "su", "-", user, "/bin/sh", "-c", script+" "+args)
 	output, err := cmd.CombinedOutput()
 	outMsg := string(output)
 	log.Debugf(ctx, "Command Result, output: %v, err: %v", outMsg, err)
